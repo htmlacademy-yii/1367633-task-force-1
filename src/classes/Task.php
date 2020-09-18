@@ -20,7 +20,7 @@
 			self::STATUS_NEW => 'Новое',
 			self::STATUS_PROCESSING => 'В работе',
 			self::STATUS_DONE => 'Выполнено',
-			self::STATUS_FAILED => 'canceled',
+			self::STATUS_FAILED => 'Отменено',
 		];
 
 		private $idCustomer;
