@@ -17,7 +17,7 @@
 		const ROLE_IMPLEMENTER = 'Исполнитель';
 
 		const MAP = [
-			 
+			
 		];
 
 		private $idCustomer;
