@@ -2,22 +2,25 @@
 
 	class Task
 	{
-		const STATUS_NEW = 'Новое';
-		const STATUS_PROCESSING = 'В работе';
-		const STATUS_DONE = 'Выполнено';
-		const STATUS_FAILED = 'Провалено';
-		const STATUS_CANCELED = 'Отменено';
+		const STATUS_NEW = 'new'; 					// Новое
+		const STATUS_PROCESSING = 'processing'; 	// В работе
+		const STATUS_DONE = 'done'; 				// Выполнено
+		const STATUS_FAILED = 'failed'; 			// Провалено
+		const STATUS_CANCELED = 'canceled'; 		// Отменено
 
-		const ACTION_RESPOND = 'Откликнуться';
-		const ACTION_DONE = 'Выполнено';
-		const ACTION_REFUSE = 'Отказаться';
-		const ACTION_CANCEL = 'Отменить';
+		const ACTION_RESPOND = 'respond'; 			// Откликнуться
+		const ACTION_DONE = 'done'; 				// Выполнено
+		const ACTION_REFUSE = 'refuse'; 			// Отказаться
+		const ACTION_CANCEL = 'cancel'; 			// Отменить
 
-		const ROLE_CUSTOMER = 'Заказчик';
-		const ROLE_IMPLEMENTER = 'Исполнитель';
+		const ROLE_CUSTOMER = 'customer'; 			// Заказчик
+		const ROLE_IMPLEMENTER = 'implementer'; 	// Исполнитель
 
-		const MAP = [
-			
+		const MAP_STATUS = [
+			self::STATUS_NEW => 'Новое',
+			self::STATUS_PROCESSING => 'В работе',
+			self::STATUS_DONE => 'Выполнено',
+			self::STATUS_FAILED => 'canceled',
 		];
 
 		private $idCustomer;
