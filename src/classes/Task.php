@@ -4,7 +4,7 @@
 	{
 		const STATUS_NEW = 'new'; 					// Новое
 		const STATUS_PROCESSING = 'processing'; 	// В работе
-		const STATUS_DONE = 'done'; 				// Выполнено
+		const STATUS_PERFORMED = 'performed'; 		// Выполнено
 		const STATUS_FAILED = 'failed'; 			// Провалено
 		const STATUS_CANCELED = 'canceled'; 		// Отменено
 
@@ -19,28 +19,60 @@
 		const MAP_STATUS = [
 			self::STATUS_NEW => 'Новое',
 			self::STATUS_PROCESSING => 'В работе',
-			self::STATUS_DONE => 'Выполнено',
+			self::STATUS_PERFORMED => 'Выполнено',
 			self::STATUS_FAILED => 'Отменено',
+		];
+
+		const MAP_ACTION = [
+			self::ACTION_RESPOND => 'Откликнуться',
+			self::ACTION_DONE => 'Выполнено',
+			self::ACTION_REFUSE => 'Отказаться',
+			self::ACTION_CANCEL => 'Отменить',
 		];
 
 		private $idCustomer;
 		private $idImplementer;
-		private $statusTask;
-		private $dateCompletion;
+		private $status;
+		private $action;
 
 		public function __construct($idCustomer, $idImplementer)
 		{
-			# code...
+			$this->idCustomer = $idCustomer;
+			$this->idImplementer = $idImplementer;
+		}
+
+		public function getNextStatus($action)
+		{
+			switch ($action) {
+				case self::ACTION_RESPOND:
+					$status = self::STATUS_NEW;
+					break;
+				case self::ACTION_DONE:
+					$status = self::STATUS_PERFORMED;
+					break;
+				case self::ACTION_REFUSE:
+					$status = self::STATUS_FAILED;
+					break;
+				case self::ACTION_CANCEL:
+					$status = self::STATUS_CANCELED;
+					break;
+				default:
+					$status = $this->status;
+					break;
+			}
+
+			return $status;
 		}
 
 		public function getStatus()
 		{
-			# code...
+			return self::MAP_STATUS;
 		}
 
 		public function getAction()
 		{
-			# code...
+			return self::MAP_ACTION;
 		}
 		
 	}
+	
