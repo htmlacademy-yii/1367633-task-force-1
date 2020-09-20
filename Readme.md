@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Nazar Yuzhyn](https://up.htmlacademy.ru/yii/1/user/1367633).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Зарубин](https://htmlacademy.ru/profile/id1385885).
 
 ---
 
