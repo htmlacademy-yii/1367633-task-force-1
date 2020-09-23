@@ -54,7 +54,7 @@
 		 * Метод для возвращения статуса в который перейдет задание
 		 *
 		 * @param [string] $action
-		 * @return void
+		 * @return [string] $status
 		 */
 		public function getNextStatus($action)
 		{
