@@ -1,29 +1,32 @@
 <?php
 
+	/**
+	 * Класс для определения всех доступных действий и статусов
+	 */
 	class Task
 	{
-		const STATUS_NEW = 'new'; 					// Новое
-		const STATUS_PROCESSING = 'processing'; 	// В работе
-		const STATUS_PERFORMED = 'performed'; 		// Выполнено
-		const STATUS_FAILED = 'failed'; 			// Провалено
-		const STATUS_CANCELED = 'canceled'; 		// Отменено
+		const STATUS_NEW = 'new'; 						// Новое
+		const STATUS_PROCESSING = 'processing'; 		// В работе
+		const STATUS_PERFORMED = 'performed'; 			// Выполнено
+		const STATUS_FAILED = 'failed'; 				// Провалено
+		const STATUS_CANCELED = 'canceled'; 			// Отменено
 
-		const ACTION_RESPOND = 'respond'; 			// Откликнуться
-		const ACTION_DONE = 'done'; 				// Выполнено
-		const ACTION_REFUSE = 'refuse'; 			// Отказаться
-		const ACTION_CANCEL = 'cancel'; 			// Отменить
+		const ACTION_RESPOND = 'respond'; 				// Откликнуться
+		const ACTION_DONE = 'done'; 					// Выполнено
+		const ACTION_REFUSE = 'refuse'; 				// Отказаться
+		const ACTION_CANCEL = 'cancel'; 				// Отменить
 
-		const ROLE_CUSTOMER = 'customer'; 			// Заказчик
-		const ROLE_IMPLEMENTER = 'implementer'; 	// Исполнитель
+		const ROLE_CUSTOMER = 'customer'; 				// Заказчик
+		const ROLE_IMPLEMENTER = 'implementer'; 		// Исполнитель
 
-		const MAP_STATUS = [
+		const STATUS_NAMES = [
 			self::STATUS_NEW => 'Новое',
 			self::STATUS_PROCESSING => 'В работе',
 			self::STATUS_PERFORMED => 'Выполнено',
 			self::STATUS_FAILED => 'Отменено',
 		];
 
-		const MAP_ACTION = [
+		const ACTION_NAMES = [
 			self::ACTION_RESPOND => 'Откликнуться',
 			self::ACTION_DONE => 'Выполнено',
 			self::ACTION_REFUSE => 'Отказаться',
@@ -35,12 +38,24 @@
 		private $status;
 		private $action;
 
+		/**
+		 * Конструктор для получения id исполнителя и id заказчика
+		 *
+		 * @param [int] $idCustomer
+		 * @param [int] $idImplementer
+		 */
 		public function __construct($idCustomer, $idImplementer)
 		{
 			$this->idCustomer = $idCustomer;
 			$this->idImplementer = $idImplementer;
 		}
 
+		/**
+		 * Метод для возвращения статуса в который перейдет задание
+		 *
+		 * @param [string] $action
+		 * @return [string] $status
+		 */
 		public function getNextStatus($action)
 		{
 			switch ($action) {
@@ -57,21 +72,11 @@
 					$status = self::STATUS_CANCELED;
 					break;
 				default:
-					$status = $this->status;
+					throw new \Exception('Передано неизвестное действие: ' . $action);
 					break;
 			}
 
 			return $status;
-		}
-
-		public function getStatus()
-		{
-			return self::MAP_STATUS;
-		}
-
-		public function getAction()
-		{
-			return self::MAP_ACTION;
 		}
 		
 	}
