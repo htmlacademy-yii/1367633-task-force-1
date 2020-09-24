@@ -1,6 +1,6 @@
 <?php
 
-	namespace TaskForce\classes;
+	namespace TaskForce\models;
 
 	/**
 	 * Класс для определения всех доступных действий и статусов
