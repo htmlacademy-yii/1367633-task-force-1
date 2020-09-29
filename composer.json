@@ -1,0 +1,17 @@
+{
+	"name": "nazaryuzhyn/task-force",
+	"description": "Study project",
+    "authors": [
+        {
+            "name": "Nazar Yuzhyn",
+            "email": "nazaryuzhyn@gmail.com"
+        }
+	],
+	"autoload": {
+		"psr-4": {
+			"TaskForce\\": "src/"
+		}
+	},
+    "require": {}
+}
+
