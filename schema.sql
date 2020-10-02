@@ -21,6 +21,11 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`favorite` (
 		FOREIGN KEY (`user_id`)
 		REFERENCES `TaskForce`.`user` (`id`)
 		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_favorite_favorite_id`
+		FOREIGN KEY (`favorite_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
 		ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
