@@ -1,134 +1,187 @@
 --
 -- База данных: `TaskForce`
 --
-CREATE DATABASE IF NOT EXISTS `TaskForce` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `TaskForce`;
+CREATE SCHEMA IF NOT EXISTS `TaskForce` DEFAULT CHARACTER SET utf8 ;
+USE `TaskForce` ;
 
-CREATE TABLE IF NOT EXISTS `category` ( 
-	`id` int(11) unsigned not null auto_increment,
-	`name` varchar(255) not null,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`city` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`longitude` DECIMAL(10,7) NOT NULL,
+	`latitude` DECIMAL(10,7) NOT NULL,
+	PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `TaskForce`.`favorite` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`user_id` INT UNSIGNED NOT NULL,
+	`favorite_id` INT UNSIGNED NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `category_ibfk_1` FOREIGN KEY (`id`) REFERENCES `task` (`category_id`)
-);
+	CONSTRAINT `fk_favorite_user_id`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `chat` ( 
-	`id` int(11) not null auto_increment,
-	`customer_id` int(11) unsigned not null,
-	`implementer_id` int(11) unsigned not null,
-	`task_id` int(11) unsigned not null,
-	`message` text not null,
-	`date_created` timestamp not null default CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`user` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	`email` VARCHAR(255) NOT NULL,
+	`password` VARCHAR(64) NOT NULL,
+	`city_id` INT UNSIGNED NOT NULL,
+	`longitude` DECIMAL(10,7) NOT NULL,
+	`latitude` DECIMAL(10,7) NOT NULL,
+	`role` VARCHAR(45) NOT NULL,
+	`birthday` DATE NOT NULL,
+	`about` TEXT NOT NULL,
+	`phone` VARCHAR(45) NOT NULL,
+	`skype` VARCHAR(45) NOT NULL,
+	`telegram` VARCHAR(45) NOT NULL,
+	`photo` VARCHAR(255) NOT NULL,
+	`rate` TINYINT(3) NOT NULL,
+	`views` INT NOT NULL,
+	`last_active` TIMESTAMP NOT NULL,
+	`date_created` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
-);
+	CONSTRAINT `fk_user_city_id`
+		FOREIGN KEY (`city_id`)
+		REFERENCES `TaskForce`.`city` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `city` ( 
-	`id` int(11) unsigned not null auto_increment,
-	`city` varchar(255) not null,
-	`longitude` decimal(10,7) not null,
-	`latitude` decimal(10,7) not null,
-	PRIMARY KEY (`id`)
-);
+CREATE TABLE IF NOT EXISTS `TaskForce`.`category` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL,
+	PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `favorite` ( 
-	`id` int(11) not null auto_increment,
-	`user_id` int(11) unsigned not null,
-	`favorite_id` int(11) unsigned not null,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`task` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`customer_id` INT UNSIGNED NOT NULL,
+	`implementer_id` INT UNSIGNED NOT NULL,
+	`category_id` INT UNSIGNED NOT NULL,
+	`city_id` INT UNSIGNED NOT NULL,
+	`address` VARCHAR(255) NOT NULL,
+	`status` VARCHAR(45) NOT NULL,
+	`title` VARCHAR(255) NOT NULL,
+	`description` TEXT NOT NULL,
+	`budget` INT NOT NULL,
+	`longitude` DECIMAL(10,7) NOT NULL,
+	`latitude` DECIMAL(10,7) NOT NULL,
+	`end_date` TIMESTAMP NOT NULL,
+	`date_created` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `favorite_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-);
+	CONSTRAINT `fk_task_category_id`
+		FOREIGN KEY (`category_id`)
+		REFERENCES `TaskForce`.`category` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_task_city_id`
+		FOREIGN KEY (`city_id`)
+		REFERENCES `TaskForce`.`city` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_task_customer_id`
+		FOREIGN KEY (`customer_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `file` ( 
-	`id` int(11) not null auto_increment,
-	`task_id` int(11) unsigned not null,
-	`file` text not null,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`chat_message` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`customer_id` INT UNSIGNED NULL,
+	`implementer_id` INT UNSIGNED NULL,
+	`task_id` INT UNSIGNED NULL,
+	`message` TEXT NULL,
+	`date_created` TIMESTAMP NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `file_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
-);
+	CONSTRAINT `fk_chat_message_task_id`
+		FOREIGN KEY (`task_id`)
+		REFERENCES `TaskForce`.`task` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `notification` ( 
-	`id` int(11) not null auto_increment,
-	`user_id` int(11) unsigned not null,
-	`new_message` tinyint(1) unsigned not null,
-	`actions_task` tinyint(1) unsigned not null,
-	`new_review` tinyint(1) unsigned not null,
-	`show_contacts` tinyint(1) unsigned not null,
-	`now_show_profile` tinyint(1) unsigned not null,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`file` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`task_id` INT UNSIGNED NOT NULL,
+	`file` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-);
+	CONSTRAINT `fk_file_task_id`
+		FOREIGN KEY (`task_id`)
+		REFERENCES `TaskForce`.`task` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `response` ( 
-	`id` int(11) not null auto_increment,
-	`task_id` int(11) unsigned not null,
-	`implementer_id` int(11) unsigned not null,
-	`description` text not null,
-	`price` int(11) unsigned null,
-	`date_created` timestamp not null default CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`notification` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	`user_id` INT UNSIGNED NOT NULL,
+	`new_message` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`actions_task` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`new_review` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`show_contacts` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`now_show_profile` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `response_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
-);
+	CONSTRAINT `fk_notification_user_id`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `reviews` ( 
-	`id` int(11) not null auto_increment,
-	`customer_id` int(11) unsigned not null,
-	`implementer_id` int(11) unsigned not null,
-	`task_id` int(11) unsigned not null,
-	`message` text not null,
-	`rate` tinyint(3) not null,
-	`date_created` timestamp not null default CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`response` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`task_id` INT UNSIGNED NOT NULL,
+	`implementer_id` INT UNSIGNED NOT NULL,
+	`description` TEXT NOT NULL,
+	`price` INT UNSIGNED NOT NULL,
+	`date_created` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`task_id`) REFERENCES `task` (`id`)
-);
+	CONSTRAINT `fk_response_task_id`
+		FOREIGN KEY (`task_id`)
+		REFERENCES `TaskForce`.`task` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_response_implementer_id`
+		FOREIGN KEY (`implementer_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `specialisation` ( 
-	`id` int(11) not null auto_increment,
-	`user_id` int(11) unsigned not null,
-	`category_id` int(11) unsigned not null,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`reviews` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`customer_id` INT UNSIGNED NOT NULL,
+	`implementer_id` INT UNSIGNED NOT NULL,
+	`task_id` INT UNSIGNED NOT NULL,
+	`message` TEXT NOT NULL,
+	`rate` TINYINT(3) NOT NULL DEFAULT 0,
+	`date_created` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `specialisation_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-	CONSTRAINT `specialisation_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-);
+	CONSTRAINT `fk_reviews_task_id`
+		FOREIGN KEY (`task_id`)
+		REFERENCES `TaskForce`.`task` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `task` ( 
-	`id` int(11) unsigned not null auto_increment,
-	`customer_id` int(11) unsigned not null,
-	`implementer_id` int(11) unsigned not null,
-	`category_id` int(11) unsigned not null,
-	`city_id` int(11) unsigned not null,
-	`address` varchar(255) not null,
-	`status` enum('new','processing','performed','failed','canceled') not null default new,
-	`title` varchar(255) not null,
-	`description` text not null,
-	`budget` int(11) not null,
-	`longitude` decimal(10,7) not null,
-	`latitude` decimal(10,7) not null,
-	`end_date` timestamp not null default CURRENT_TIMESTAMP,
-	`date_created` timestamp not null default CURRENT_TIMESTAMP,
+CREATE TABLE IF NOT EXISTS `TaskForce`.`specialization` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`user_id` INT UNSIGNED NOT NULL,
+	`category_id` INT UNSIGNED NOT NULL,
 	PRIMARY KEY (`id`),
-	CONSTRAINT `task_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
-	CONSTRAINT `task_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `user` ( 
-	`id` int(11) unsigned not null auto_increment,
-	`name` varchar(255) not null,
-	`email` varchar(255) not null,
-	`password` varchar(255) not null,
-	`city_id` int(11) unsigned not null,
-	`longitude` decimal(10,7) not null,
-	`latitude` decimal(10,7) not null,
-	`role` enum('customer','implementer') not null default customer,
-	`birthday` date not null,
-	`about` text not null,
-	`phone` varchar(255) not null,
-	`skype` varchar(255) not null,
-	`telegram` varchar(255) not null,
-	`photo` varchar(255) not null,
-	`rate` tinyint(3) unsigned not null,
-	`views` int(11) not null,
-	`last_active` timestamp not null default CURRENT_TIMESTAMP,
-	`date_created` timestamp not null default CURRENT_TIMESTAMP,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `user_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
-);
+	CONSTRAINT `fk_specialization_user_id`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_specialization_category_id`
+		FOREIGN KEY (`category_id`)
+		REFERENCES `TaskForce`.`category` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
+ENGINE = InnoDB;
