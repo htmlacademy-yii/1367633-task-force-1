@@ -64,9 +64,14 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `TaskForce`.`portfolio` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`id_user` INT UNSIGNED NOT NULL,
+	`user_id` INT UNSIGNED NOT NULL,
 	`photo` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`id`))
+	PRIMARY KEY (`id`),
+	CONSTRAINT `fk_portfolio_user_id`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `TaskForce`.`task` (
