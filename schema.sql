@@ -100,6 +100,11 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`task` (
 		REFERENCES `TaskForce`.`city` (`id`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
+	CONSTRAINT `fk_task_implementer_id`
+		FOREIGN KEY (`implementer_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
 	CONSTRAINT `fk_task_customer_id`
 		FOREIGN KEY (`customer_id`)
 		REFERENCES `TaskForce`.`user` (`id`)
@@ -182,6 +187,16 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`reviews` (
 	CONSTRAINT `fk_reviews_task_id`
 		FOREIGN KEY (`task_id`)
 		REFERENCES `TaskForce`.`task` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_reviews_customer_id`
+		FOREIGN KEY (`customer_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	CONSTRAINT `fk_reviews_implementer_id`
+		FOREIGN KEY (`implementer_id`)
+		REFERENCES `TaskForce`.`user` (`id`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE)
 ENGINE = InnoDB;
