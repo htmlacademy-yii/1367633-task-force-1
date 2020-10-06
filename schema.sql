@@ -43,7 +43,11 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`user` (
 	`phone` VARCHAR(45) NOT NULL,
 	`skype` VARCHAR(45) NOT NULL,
 	`telegram` VARCHAR(45) NOT NULL,
-	`photo` VARCHAR(255) NOT NULL,
+	`new_message` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`actions_task` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`new_review` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`show_contacts` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+	`now_show_profile` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	`rate` TINYINT(3) NOT NULL,
 	`views` INT NOT NULL,
 	`last_active` TIMESTAMP NOT NULL,
@@ -60,18 +64,6 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`category` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `TaskForce`.`portfolio` (
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`user_id` INT UNSIGNED NOT NULL,
-	`photo` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `fk_portfolio_user_id`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `TaskForce`.`user` (`id`)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `TaskForce`.`task` (
@@ -118,34 +110,6 @@ CREATE TABLE IF NOT EXISTS `TaskForce`.`chat_message` (
 	CONSTRAINT `fk_chat_message_task_id`
 		FOREIGN KEY (`task_id`)
 		REFERENCES `TaskForce`.`task` (`id`)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `TaskForce`.`file` (
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`task_id` INT UNSIGNED NOT NULL,
-	`file` VARCHAR(255) NOT NULL,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `fk_file_task_id`
-		FOREIGN KEY (`task_id`)
-		REFERENCES `TaskForce`.`task` (`id`)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE)
-ENGINE = InnoDB;
-
-CREATE TABLE IF NOT EXISTS `TaskForce`.`notification` (
-	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`user_id` INT UNSIGNED NOT NULL,
-	`new_message` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	`actions_task` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	`new_review` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	`show_contacts` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	`now_show_profile` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
-	PRIMARY KEY (`id`),
-	CONSTRAINT `fk_notification_user_id`
-		FOREIGN KEY (`user_id`)
-		REFERENCES `TaskForce`.`user` (`id`)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE)
 ENGINE = InnoDB;
