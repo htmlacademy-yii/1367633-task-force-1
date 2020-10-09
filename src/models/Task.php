@@ -53,8 +53,7 @@
 
 		public function setStatus($status)
 		{
-			if(!array_key_exists($status, self::STATUS_NAMES))
-			{
+			if(!array_key_exists($status, self::STATUS_NAMES)){
 				return false;
 			}
 
@@ -64,8 +63,7 @@
 
 		public function getActions($idUser)
 		{
-			if(!$this->status)
-			{
+			if(!$this->status){
 				return null;
 			}
 
@@ -91,8 +89,7 @@
 		 */
 		public function getNextStatus($action)
 		{
-			if(!$this->status || !isset(self::ACTION_AVAILABLE[$this->status]))
-			{
+			if(!$this->status || !isset(self::ACTION_AVAILABLE[$this->status])){
 				return null;
 			}
 
