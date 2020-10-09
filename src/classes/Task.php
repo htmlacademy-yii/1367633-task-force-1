@@ -1,7 +1,5 @@
 <?php
 
-	namespace TaskForce\models;
-
 	/**
 	 * Класс для определения всех доступных действий и статусов
 	 */
@@ -56,7 +54,7 @@
 		 * Метод для возвращения статуса в который перейдет задание
 		 *
 		 * @param [string] $action
-		 * @return [string] $status
+		 * @return void
 		 */
 		public function getNextStatus($action)
 		{
