@@ -2,6 +2,12 @@
 
 	namespace TaskForce\models;
 
+	use TaskForce\Actions\AbstractAction;
+	use TaskForce\Actions\CancelAction;
+	use TaskForce\Actions\DoneAction;
+	use TaskForce\Actions\RefuseAction;
+	use TaskForce\Actions\RespondAction;
+
 	/**
 	 * Класс для определения всех доступных действий и статусов
 	 */
@@ -13,11 +19,6 @@
 		const STATUS_FAILED = 'failed'; 				// Провалено
 		const STATUS_CANCELED = 'canceled'; 			// Отменено
 
-		const ACTION_RESPOND = 'respond'; 				// Откликнуться
-		const ACTION_DONE = 'done'; 					// Выполнено
-		const ACTION_REFUSE = 'refuse'; 				// Отказаться
-		const ACTION_CANCEL = 'cancel'; 				// Отменить
-
 		const ROLE_CUSTOMER = 'customer'; 				// Заказчик
 		const ROLE_IMPLEMENTER = 'implementer'; 		// Исполнитель
 
@@ -28,28 +29,58 @@
 			self::STATUS_FAILED => 'Отменено',
 		];
 
-		const ACTION_NAMES = [
-			self::ACTION_RESPOND => 'Откликнуться',
-			self::ACTION_DONE => 'Выполнено',
-			self::ACTION_REFUSE => 'Отказаться',
-			self::ACTION_CANCEL => 'Отменить',
+		const ACTION_AVAILABLE = [
+			self::STATUS_NEW => [RespondAction::class, CancelAction::class],
+			self::STATUS_PROCESSING => [DoneAction::class, RefuseAction::class],
 		];
 
 		private $idCustomer;
 		private $idImplementer;
 		private $status;
-		private $action;
 
 		/**
 		 * Конструктор для получения id исполнителя и id заказчика
 		 *
 		 * @param [int] $idCustomer
 		 * @param [int] $idImplementer
+		 * @param [int] $idUser
 		 */
 		public function __construct($idCustomer, $idImplementer)
 		{
 			$this->idCustomer = $idCustomer;
 			$this->idImplementer = $idImplementer;
+		}
+
+		public function setStatus($status)
+		{
+			if(!array_key_exists($status, self::STATUS_NAMES))
+			{
+				return false;
+			}
+
+			$this->status = $status;
+			return true;
+		}
+
+		public function getActions($idUser)
+		{
+			if(!$this->status)
+			{
+				return null;
+			}
+
+			$ActionAvailable = [];
+			if(array_key_exists($this->status, self::ACTION_AVAILABLE))
+			{
+				foreach(self::ACTION_AVAILABLE[$this->status] as $action){
+					$action = new $action();
+					if($action->getUser($this->idCustomer, $this->idImplementer, $idUser)){
+						$ActionAvailable = $action->getAction();
+					}
+				}
+			}
+
+			return $ActionAvailable;
 		}
 
 		/**
@@ -60,25 +91,18 @@
 		 */
 		public function getNextStatus($action)
 		{
-			switch ($action) {
-				case self::ACTION_RESPOND:
-					$status = self::STATUS_NEW;
-					break;
-				case self::ACTION_DONE:
-					$status = self::STATUS_PERFORMED;
-					break;
-				case self::ACTION_REFUSE:
-					$status = self::STATUS_FAILED;
-					break;
-				case self::ACTION_CANCEL:
-					$status = self::STATUS_CANCELED;
-					break;
-				default:
-					throw new \Exception('Передано неизвестное действие: ' . $action);
-					break;
+			if(!$this->status || !isset(self::ACTION_AVAILABLE[$this->status]))
+			{
+				return null;
 			}
 
-			return $status;
+			foreach(self::ACTION_AVAILABLE[$this->status] as $act){
+				if($act::getAction() === $action){
+					return $act::nextStatus();
+				}
+			}
+
+			return null;
 		}
 		
 	}
