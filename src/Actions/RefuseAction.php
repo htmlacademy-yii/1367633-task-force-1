@@ -17,5 +17,10 @@
 		{
 			return 'refuse';
 		}
+
+		public function nextStatus()
+		{
+			return 'failed';
+		}
 	}
 	

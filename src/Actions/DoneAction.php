@@ -17,5 +17,10 @@
 		{
 			return 'done';
 		}
+
+		public function nextStatus()
+		{
+			return 'performed';
+		}
 	}
 	

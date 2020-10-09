@@ -30,4 +30,6 @@
 		 * @return string
 		 */
 		abstract public function getAction();
+
+		abstract public function nextStatus();
 	}

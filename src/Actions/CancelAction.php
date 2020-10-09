@@ -17,5 +17,10 @@
 		{
 			return 'cancel';
 		}
+
+		public function nextStatus()
+		{
+			return 'canceled';
+		}
 	}
 	

@@ -17,5 +17,10 @@
 		{
 			return 'respond';
 		}
+
+		public function nextStatus()
+		{
+			return 'processing';
+		}
 	}
 	
