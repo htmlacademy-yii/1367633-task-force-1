@@ -43,7 +43,6 @@
 		 *
 		 * @param [int] $idCustomer
 		 * @param [int] $idImplementer
-		 * @param [int] $idUser
 		 */
 		public function __construct($idCustomer, $idImplementer)
 		{
