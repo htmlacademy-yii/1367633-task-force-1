@@ -2,9 +2,12 @@
 
 	namespace TaskForce\Actions;
 	
+	/**
+	 * DoneAction class наследует от AbstractAction, возвращает действие 'Выполнено'
+	 */
 	class DoneAction extends AbstractAction
 	{
-		public function getUser($idCustomer, $idImplementer, $idUser){
+		public function canUse($idCustomer, $idImplementer, $idUser){
 			return $idImplementer !== $idUser;
 		}
 

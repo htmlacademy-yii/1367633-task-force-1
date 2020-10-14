@@ -15,7 +15,7 @@
 		 * @param [int] $idUser
 		 * @return true если у пользователя есть право на действие
 		 */
-		abstract public function getUser($idCustomer, $idImplementer, $idUser);
+		abstract public function canUse($idCustomer, $idImplementer, $idUser);
 
 		/**
 		 * Метод для локализации имя действия
@@ -31,5 +31,10 @@
 		 */
 		abstract public function getAction();
 
+		/**
+		 * Метод для не локализованного имя статуса
+		 *
+		 * @return string
+		 */
 		abstract public function nextStatus();
 	}

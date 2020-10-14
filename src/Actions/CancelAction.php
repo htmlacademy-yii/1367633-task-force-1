@@ -2,9 +2,12 @@
 
 	namespace TaskForce\Actions;
 	
+	/**
+	 * CancelAction class наследует от AbstractAction, возвращает действие 'Отменить'
+	 */
 	class CancelAction extends AbstractAction
 	{
-		public function getUser($idCustomer, $idImplementer, $idUser){
+		public function canUse($idCustomer, $idImplementer, $idUser){
 			return $idImplementer !== $idUser;
 		}
 
