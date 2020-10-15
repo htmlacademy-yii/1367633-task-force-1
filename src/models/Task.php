@@ -41,8 +41,8 @@ class Task
 	/**
 	 * Конструктор для получения id исполнителя и id заказчика
 	 *
-	 * @param [int] $idCustomer
-	 * @param [int] $idImplementer
+	 * @param int $idCustomer
+	 * @param int $idImplementer
 	 */
 	public function __construct($idCustomer, $idImplementer)
 	{
@@ -66,24 +66,24 @@ class Task
 			return null;
 		}
 
-		$ActionAvailable = [];
+		$actionAvailable = [];
 		if (array_key_exists($this->status, self::ACTION_AVAILABLE)) {
 			foreach (self::ACTION_AVAILABLE[$this->status] as $action) {
 				$action = new $action();
 				if ($action->canUse($this->idCustomer, $this->idImplementer, $idUser)) {
-					$ActionAvailable = $action->getAction();
+					$actionAvailable = $action->getAction();
 				}
 			}
 		}
 
-		return $ActionAvailable;
+		return $actionAvailable;
 	}
 
 	/**
 	 * Метод для возвращения статуса в который перейдет задание
 	 *
-	 * @param [string] $action
-	 * @return [string] $status
+	 * @param string $action
+	 * @return string $status
 	 */
 	public function getNextStatus($action)
 	{
