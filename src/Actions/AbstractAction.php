@@ -31,14 +31,5 @@
 		 */
 		abstract public function getAction(): string;
 
-<<<<<<< HEAD
 		abstract public function nextStatus(): string;
-=======
-		/**
-		 * Метод для не локализованного имя статуса
-		 *
-		 * @return string
-		 */
-		abstract public function nextStatus();
->>>>>>> 0ffac1e6f682a24430df7a7278b9b5d7e3840c40
 	}
