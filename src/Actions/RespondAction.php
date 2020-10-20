@@ -2,10 +2,12 @@
 
 	namespace TaskForce\Actions;
 	
+	/**
+	 * RespondAction class наследует от AbstractAction, возвращает действие 'Откликнуться'
+	 */
 	class RespondAction extends AbstractAction
 	{
-		public function getUser($idCustomer, $idImplementer, $idUser): bool
-		{
+		public function canUse($idCustomer, $idImplementer, $idUser){
 			return $idCustomer !== $idUser;
 		}
 
