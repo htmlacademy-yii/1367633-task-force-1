@@ -42,9 +42,9 @@
 		/**
 		 * Конструктор для получения id исполнителя и id заказчика
 		 *
-		 * @param [int] $idCustomer
-		 * @param [int] $idImplementer
-		 * @param [int] $idUser
+		 * @param int $idCustomer
+		 * @param int $idImplementer
+		 * @param int $idUser
 		 */
 		public function __construct($idCustomer, $idImplementer)
 		{
@@ -87,8 +87,8 @@
 		/**
 		 * Метод для возвращения статуса в который перейдет задание
 		 *
-		 * @param [string] $action
-		 * @return [string] $status
+		 * @param string $action
+		 * @return string $status
 		 * @throws ExistsException
 		 */
 		public function getNextStatus($action): ?string

@@ -10,9 +10,9 @@
 		/**
 		 * Метод для проверки прав пользователя на использования действия
 		 *
-		 * @param [int] $idCustomer
-		 * @param [int] $idImplementer
-		 * @param [int] $idUser
+		 * @param int $idCustomer
+		 * @param int $idImplementer
+		 * @param int $idUser
 		 * @return true если у пользователя есть право на действие
 		 */
 		abstract public function getUser($idCustomer, $idImplementer, $idUser): bool;
