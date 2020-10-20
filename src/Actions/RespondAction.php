@@ -4,21 +4,22 @@
 	
 	class RespondAction extends AbstractAction
 	{
-		public function getUser($idCustomer, $idImplementer, $idUser){
+		public function getUser($idCustomer, $idImplementer, $idUser): bool
+		{
 			return $idCustomer !== $idUser;
 		}
 
-		public function getName()
+		public function getName(): string
 		{
 			return 'Откликнуться';
 		}
 
-		public function getAction()
+		public function getAction(): string
 		{
 			return 'respond';
 		}
 
-		public function nextStatus()
+		public function nextStatus(): string
 		{
 			return 'processing';
 		}

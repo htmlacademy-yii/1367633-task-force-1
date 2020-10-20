@@ -15,21 +15,21 @@
 		 * @param [int] $idUser
 		 * @return true если у пользователя есть право на действие
 		 */
-		abstract public function getUser($idCustomer, $idImplementer, $idUser);
+		abstract public function getUser($idCustomer, $idImplementer, $idUser): bool;
 
 		/**
 		 * Метод для локализации имя действия
 		 *
 		 * @return string
 		 */
-		abstract public function getName();
+		abstract public function getName(): string;
 
 		/**
 		 * Метод для не локализованного имя действия
 		 *
 		 * @return string
 		 */
-		abstract public function getAction();
+		abstract public function getAction(): string;
 
-		abstract public function nextStatus();
+		abstract public function nextStatus(): string;
 	}

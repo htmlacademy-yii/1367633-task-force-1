@@ -1,19 +1,21 @@
 <?php
 
-	require_once __DIR__ . '/vendor/autoload.php';
+declare(strict_types=1);
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 
-	use TaskForce\models\Task;
+require_once __DIR__ . '/vendor/autoload.php';
 
+use TaskForce\Models\Task;
+use TaskForce\Exception\ExistsException;
+
+try{
 	$task = new Task(1, 2);
+	$task->getNextStatus("done");
+}
+catch(\TaskForce\Exception\ExistsException $error){
+	error_log("Ошибка: " . $error->getMessage());
+}
 
-	echo '<pre>';
-
-	print_r($task::STATUS_NAMES);
-
-	print_r($task::ACTION_NAMES);
-
-	print_r($task->getNextStatus("done"));
-
-	assert($task->getNextStatus("done") == Task::STATUS_PERFORMED, 'Ожидайте действие: "done"');
-	assert($task->getNextStatus("cancel") == Task::STATUS_CANCELED, 'Ожидайте действие: "cancel"');
+assert($task->getNextStatus("cancel") == Task::STATUS_CANCELED);
 	

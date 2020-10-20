@@ -4,21 +4,22 @@
 	
 	class DoneAction extends AbstractAction
 	{
-		public function getUser($idCustomer, $idImplementer, $idUser){
+		public function getUser($idCustomer, $idImplementer, $idUser): bool
+		{
 			return $idImplementer !== $idUser;
 		}
 
-		public function getName()
+		public function getName(): string
 		{
 			return 'Выполнено';
 		}
 
-		public function getAction()
+		public function getAction(): string
 		{
 			return 'done';
 		}
 
-		public function nextStatus()
+		public function nextStatus(): string
 		{
 			return 'performed';
 		}

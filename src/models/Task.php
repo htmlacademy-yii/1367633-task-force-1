@@ -1,12 +1,13 @@
 <?php
 
-	namespace TaskForce\models;
+	namespace TaskForce\Models;
 
 	use TaskForce\Actions\AbstractAction;
 	use TaskForce\Actions\CancelAction;
 	use TaskForce\Actions\DoneAction;
 	use TaskForce\Actions\RefuseAction;
 	use TaskForce\Actions\RespondAction;
+	use TaskForce\Exception\ExistsException;
 
 	/**
 	 * Класс для определения всех доступных действий и статусов
@@ -51,18 +52,18 @@
 			$this->idImplementer = $idImplementer;
 		}
 
-		public function setStatus($status)
+		public function setStatus($status): bool
 		{
 			if(!array_key_exists($status, self::STATUS_NAMES))
 			{
-				return false;
+				throw new ExistsException('Передано неизвестный статус: ' . $status);
 			}
 
 			$this->status = $status;
 			return true;
 		}
 
-		public function getActions($idUser)
+		public function getActions($idUser): ?array
 		{
 			if(!$this->status)
 			{
@@ -88,12 +89,13 @@
 		 *
 		 * @param [string] $action
 		 * @return [string] $status
+		 * @throws ExistsException
 		 */
-		public function getNextStatus($action)
+		public function getNextStatus($action): ?string
 		{
 			if(!$this->status || !isset(self::ACTION_AVAILABLE[$this->status]))
 			{
-				return null;
+				throw new ExistsException('Передано неизвестное действие: ' . $action);
 			}
 
 			foreach(self::ACTION_AVAILABLE[$this->status] as $act){
