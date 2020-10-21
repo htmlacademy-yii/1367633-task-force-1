@@ -1,35 +1,35 @@
 <?php
 
-	namespace TaskForce\Actions;
+namespace TaskForce\Actions;
+
+/**
+ * Класс для определения действия которую может совершить пользователь
+ */
+abstract class AbstractAction
+{
+	/**
+	 * Метод для проверки прав пользователя на использования действия
+	 *
+	 * @param int $idCustomer
+	 * @param int $idImplementer
+	 * @param int $idUser
+	 * @return bool true если у пользователя есть право на действие
+	 */
+	abstract public function canUse($idCustomer, $idImplementer, $idUser): bool;
 
 	/**
-	 * Класс для определения действия которую может совершить пользователь
+	 * Метод для локализации имя действия
+	 *
+	 * @return string
 	 */
-	abstract class AbstractAction
-	{
-		/**
-		 * Метод для проверки прав пользователя на использования действия
-		 *
-		 * @param int $idCustomer
-		 * @param int $idImplementer
-		 * @param int $idUser
-		 * @return true если у пользователя есть право на действие
-		 */
-		abstract public function getUser($idCustomer, $idImplementer, $idUser): bool;
+	abstract public function getName(): string;
 
-		/**
-		 * Метод для локализации имя действия
-		 *
-		 * @return string
-		 */
-		abstract public function getName(): string;
+	/**
+	 * Метод для не локализованного имя действия
+	 *
+	 * @return string
+	 */
+	abstract public function getAction(): string;
 
-		/**
-		 * Метод для не локализованного имя действия
-		 *
-		 * @return string
-		 */
-		abstract public function getAction(): string;
-
-		abstract public function nextStatus(): string;
-	}
+	abstract public function nextStatus(): string;
+}
