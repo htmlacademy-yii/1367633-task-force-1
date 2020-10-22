@@ -1,29 +1,26 @@
 <?php
 
-	namespace TaskForce\Actions;
-	
-	/**
-	 * RefuseAction class наследует от AbstractAction, возвращает действие 'Отказаться'
-	 */
-	class RefuseAction extends AbstractAction
+namespace TaskForce\Actions;
+
+class RefuseAction extends AbstractAction
+{
+	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
-		public function canUse($idCustomer, $idImplementer, $idUser){
-			return $idCustomer !== $idUser;
-		}
-
-		public function getName()
-		{
-			return 'Отказаться';
-		}
-
-		public function getAction()
-		{
-			return 'refuse';
-		}
-
-		public function nextStatus()
-		{
-			return 'failed';
-		}
+		return $idCustomer !== $idUser;
 	}
-	
+
+	public function getName(): string
+	{
+		return 'Отказаться';
+	}
+
+	public function getAction(): string
+	{
+		return 'refuse';
+	}
+
+	public function nextStatus(): string
+	{
+		return 'failed';
+	}
+}
