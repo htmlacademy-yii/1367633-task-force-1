@@ -30,6 +30,7 @@ for ($i = 0; $i < count($path); $i++) {
 
 	try {
 		$parserCSV->writeFile($outputFile);
+		print("Файл '" . $outputFile . "' успешно создан!<br />");
 	} catch (ExistsException $error) {
 		error_log('Не удалось обработать файл' . $outputFile . ': ' . $error->getMessage());
 	}

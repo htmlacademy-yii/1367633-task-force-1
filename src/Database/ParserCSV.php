@@ -10,13 +10,44 @@ use SplFileObject;
  */
 class ParserCSV
 {
+	/**
+	 * @var SplFileObject
+	 */
 	private $file;
+
+	/**
+	 * @var SplFileObject
+	 */
 	private $fileSql;
+
+	/**
+	 * @var bool
+	 */
 	private $output;
+
+	/**
+	 * @var array
+	 */
 	private $data;
+
+	/**
+	 * @var string|null
+	 */
 	private $fileNameSql;
+
+	/**
+	 * @var array
+	 */
 	private $columns;
+
+	/**
+	 * @var string
+	 */
 	private $tableName;
+
+	/**
+	 * @var string
+	 */
 	private $filename;
 
 	public function __construct(string $filename, array $columns)
@@ -121,7 +152,5 @@ class ParserCSV
 		);
 
 		$this->fileSql->fwrite($query);
-
-		print("Файл '" . $fileNameSql . "' успешно создан!<br />");
 	}
 }
