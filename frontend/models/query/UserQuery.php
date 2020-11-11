@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[Reviews]].
+ * This is the ActiveQuery class for [[User]].
  *
- * @see Reviews
+ * @see User
  */
-class ReviewsQuery extends \yii\db\ActiveQuery
+class UserQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class ReviewsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Reviews[]|array
+     * @return User[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class ReviewsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Reviews|array|null
+     * @return User|array|null
      */
     public function one($db = null)
     {

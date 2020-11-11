@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[Favorite]].
+ * This is the ActiveQuery class for [[Task]].
  *
- * @see Favorite
+ * @see Task
  */
-class FavoriteQuery extends \yii\db\ActiveQuery
+class TaskQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class FavoriteQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Favorite[]|array
+     * @return Task[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class FavoriteQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Favorite|array|null
+     * @return Task|array|null
      */
     public function one($db = null)
     {

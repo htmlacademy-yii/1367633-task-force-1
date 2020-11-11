@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[City]].
+ * This is the ActiveQuery class for [[Specialization]].
  *
- * @see City
+ * @see Specialization
  */
-class CityQuery extends \yii\db\ActiveQuery
+class SpecializationQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class CityQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return City[]|array
+     * @return Specialization[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class CityQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return City|array|null
+     * @return Specialization|array|null
      */
     public function one($db = null)
     {

@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[Task]].
+ * This is the ActiveQuery class for [[Reviews]].
  *
- * @see Task
+ * @see Reviews
  */
-class TaskQuery extends \yii\db\ActiveQuery
+class ReviewsQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class TaskQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Task[]|array
+     * @return Reviews[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class TaskQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Task|array|null
+     * @return Reviews|array|null
      */
     public function one($db = null)
     {

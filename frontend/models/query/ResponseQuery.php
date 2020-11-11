@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\query;
 
 /**
- * This is the ActiveQuery class for [[Specialization]].
+ * This is the ActiveQuery class for [[Response]].
  *
- * @see Specialization
+ * @see Response
  */
-class SpecializationQuery extends \yii\db\ActiveQuery
+class ResponseQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -16,7 +16,7 @@ class SpecializationQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Specialization[]|array
+     * @return Response[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class SpecializationQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Specialization|array|null
+     * @return Response|array|null
      */
     public function one($db = null)
     {
