@@ -7,23 +7,23 @@ $this->title = 'TaskForce';
 	<div class="new-task__wrapper">
 		<h1>Новые задания</h1>
 		<?php foreach($tasks as $task) : ?>
-		<div class="new-task__card">
-			<div class="new-task__title">
-				<a href="#" class="link-regular">
-					<h2><?= $task->title; ?></h2>
-				</a>
-				<a class="new-task__type link-regular" href="#">
-					<p><?= $task->category->name; ?></p>
-				</a>
+			<div class="new-task__card">
+				<div class="new-task__title">
+					<a href="#" class="link-regular">
+						<h2><?= $task->title; ?></h2>
+					</a>
+					<a class="new-task__type link-regular" href="#">
+						<p><?= $task->category->name; ?></p>
+					</a>
+				</div>
+				<div class="new-task__icon new-task__icon--<?= $task->category->icon; ?>"></div>
+				<p class="new-task_description">
+					<?= $task->description; ?>
+				</p>
+				<b class="new-task__price new-task__price--<?= $task->category->icon; ?>"><?= $task->budget; ?><b> ₽</b></b>
+				<p class="new-task__place"><?= $task->city->name; ?>, <?= $task->address; ?></p>
+				<span class="new-task__time"><?= Yii::$app->formatter->asRelativeTime($task->date_created); ?></span>
 			</div>
-			<div class="new-task__icon new-task__icon--<?= $task->category->icon; ?>"></div>
-			<p class="new-task_description">
-				<?= $task->description; ?>
-			</p>
-			<b class="new-task__price new-task__price--<?= $task->category->icon; ?>"><?= $task->budget; ?><b> ₽</b></b>
-			<p class="new-task__place"><?= $task->city->name; ?>, <?= $task->address; ?></p>
-			<span class="new-task__time"><?= Yii::$app->formatter->asRelativeTime($task->date_created); ?></span>
-		</div>
 		<?php endforeach; ?>
 	</div>
 	<div class="new-task__pagination">
