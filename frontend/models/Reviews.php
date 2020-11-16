@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use frontend\models\query\ReviewsQuery;
 
 /**
  * This is the model class for table "reviews".
