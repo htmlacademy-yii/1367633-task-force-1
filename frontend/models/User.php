@@ -12,8 +12,8 @@ use frontend\models\query\UserQuery;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property string $address
  * @property int $city_id
+ * @property string $address
  * @property float $longitude
  * @property float $latitude
  * @property string $role
@@ -37,6 +37,7 @@ use frontend\models\query\UserQuery;
  * @property Reviews[] $reviews0
  * @property Specialization[] $specializations
  * @property Task[] $tasks
+ * @property Task[] $tasks0
  * @property City $city
  */
 class User extends \yii\db\ActiveRecord
@@ -55,7 +56,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'address', 'city_id', 'longitude', 'latitude', 'role', 'birthday', 'about', 'phone', 'skype', 'telegram', 'rate', 'views', 'last_active', 'date_created'], 'required'],
+            [['name', 'email', 'password', 'city_id', 'address', 'longitude', 'latitude', 'role', 'birthday', 'about', 'phone', 'skype', 'telegram', 'rate', 'views', 'last_active', 'date_created'], 'required'],
             [['city_id', 'new_message', 'actions_task', 'new_review', 'show_contacts', 'now_show_profile', 'rate', 'views'], 'integer'],
             [['longitude', 'latitude'], 'number'],
             [['birthday', 'last_active', 'date_created'], 'safe'],
@@ -77,8 +78,8 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
-            'address' => 'Address',
             'city_id' => 'City ID',
+            'address' => 'Address',
             'longitude' => 'Longitude',
             'latitude' => 'Latitude',
             'role' => 'Role',
@@ -147,6 +148,16 @@ class User extends \yii\db\ActiveRecord
     public function getTasks()
     {
         return $this->hasMany(Task::className(), ['customer_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Tasks0]].
+     *
+     * @return \yii\db\ActiveQuery|TaskQuery
+     */
+    public function getTasks0()
+    {
+        return $this->hasMany(Task::className(), ['implementer_id' => 'id']);
     }
 
     /**
