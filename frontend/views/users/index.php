@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = 'TaskForce';
+$this->title = 'TaskForce - Исполнители';
 ?>
 <section class="user__search">
 	<div class="user__search-link">

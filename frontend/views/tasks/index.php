@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 
-$this->title = 'TaskForce';
+$this->title = 'TaskForce - Задания';
 ?>
 <section class="new-task">
 	<div class="new-task__wrapper">
