@@ -37,9 +37,9 @@ $this->title = 'TaskForce';
 				<span class="new-task__time"><?= Yii::$app->formatter->asRelativeTime($user->last_active); ?></span>
 			</div>
 			<div class="link-specialization user__search-link--bottom">
-				<a href="#" class="link-regular">Ремонт</a>
-				<a href="#" class="link-regular">Курьер</a>
-				<a href="#" class="link-regular">Оператор ПК</a>
+				<?php foreach($user->specializations as $specialization) : ?>
+					<a href="#" class="link-regular"><?= $specialization->category->name; ?></a>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	<?php endforeach; ?>
