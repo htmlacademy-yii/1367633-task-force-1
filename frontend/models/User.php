@@ -42,6 +42,9 @@ use frontend\models\query\UserQuery;
  */
 class User extends \yii\db\ActiveRecord
 {
+	const ROLE_CUSTOMER = 'customer';
+	const ROLE_IMPLEMENTER = 'implementer';
+
     /**
      * {@inheritdoc}
      */
