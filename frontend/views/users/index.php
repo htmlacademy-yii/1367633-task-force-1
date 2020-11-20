@@ -23,8 +23,8 @@ $this->title = 'TaskForce - Исполнители';
 			<div class="feedback-card__top">
 				<div class="user__search-icon">
 					<a href="#"><img src="./img/man-glasses.jpg" width="65" height="65"></a>
-					<span><?= count($user->tasks0); ?> заданий</span>
-					<span><?= count($user->reviews0); ?> отзывов</span>
+					<span><?= count($user->implementerTasks); ?> заданий</span>
+					<span><?= count($user->implementerReviews); ?> отзывов</span>
 				</div>
 				<div class="feedback-card__top--name user__search-card">
 					<p class="link-name"><a href="#" class="link-regular"><?= $user->name; ?></a></p>

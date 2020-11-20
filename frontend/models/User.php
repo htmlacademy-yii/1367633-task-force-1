@@ -33,11 +33,11 @@ use frontend\models\query\UserQuery;
  * @property string $date_created
  *
  * @property Response[] $responses
- * @property Reviews[] $reviews
- * @property Reviews[] $reviews0
+ * @property Reviews[] $customerReviews
+ * @property Reviews[] $implementerReviews
  * @property Specialization[] $specializations
- * @property Task[] $tasks
- * @property Task[] $tasks0
+ * @property Task[] $customerTasks
+ * @property Task[] $implementerTasks
  * @property City $city
  */
 class User extends \yii\db\ActiveRecord
@@ -118,7 +118,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
-    public function getReviews()
+    public function getCustomerReviews()
     {
         return $this->hasMany(Reviews::className(), ['customer_id' => 'id']);
     }
@@ -128,7 +128,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
-    public function getReviews0()
+    public function getImplementerReviews()
     {
         return $this->hasMany(Reviews::className(), ['implementer_id' => 'id']);
     }
@@ -144,21 +144,21 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[CustomerTasks]].
      *
      * @return \yii\db\ActiveQuery|TaskQuery
      */
-    public function getTasks()
+    public function getCustomerTasks()
     {
         return $this->hasMany(Task::className(), ['customer_id' => 'id']);
     }
 
     /**
-     * Gets query for [[Tasks0]].
+     * Gets query for [[ImplementerTasks]].
      *
      * @return \yii\db\ActiveQuery|TaskQuery
      */
-    public function getTasks0()
+    public function getImplementerTasks()
     {
         return $this->hasMany(Task::className(), ['implementer_id' => 'id']);
     }
