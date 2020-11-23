@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use frontend\models\query\TaskQuery;
 
 /**
  * This is the model class for table "task".
@@ -31,6 +32,8 @@ use Yii;
  */
 class Task extends \yii\db\ActiveRecord
 {
+	const STATUS_NEW = 'new';
+
     /**
      * {@inheritdoc}
      */

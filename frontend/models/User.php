@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use frontend\models\query\UserQuery;
 
 /**
  * This is the model class for table "user".
@@ -11,8 +12,8 @@ use Yii;
  * @property string $name
  * @property string $email
  * @property string $password
- * @property string $address
  * @property int $city_id
+ * @property string $address
  * @property float $longitude
  * @property float $latitude
  * @property string $role
@@ -32,14 +33,18 @@ use Yii;
  * @property string $date_created
  *
  * @property Response[] $responses
- * @property Reviews[] $reviews
- * @property Reviews[] $reviews0
+ * @property Reviews[] $customerReviews
+ * @property Reviews[] $implementerReviews
  * @property Specialization[] $specializations
- * @property Task[] $tasks
+ * @property Task[] $customerTasks
+ * @property Task[] $implementerTasks
  * @property City $city
  */
 class User extends \yii\db\ActiveRecord
 {
+	const ROLE_CUSTOMER = 'customer';
+	const ROLE_IMPLEMENTER = 'implementer';
+
     /**
      * {@inheritdoc}
      */
@@ -54,7 +59,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'address', 'city_id', 'longitude', 'latitude', 'role', 'birthday', 'about', 'phone', 'skype', 'telegram', 'rate', 'views', 'last_active', 'date_created'], 'required'],
+            [['name', 'email', 'password', 'city_id', 'address', 'longitude', 'latitude', 'role', 'birthday', 'about', 'phone', 'skype', 'telegram', 'rate', 'views', 'last_active', 'date_created'], 'required'],
             [['city_id', 'new_message', 'actions_task', 'new_review', 'show_contacts', 'now_show_profile', 'rate', 'views'], 'integer'],
             [['longitude', 'latitude'], 'number'],
             [['birthday', 'last_active', 'date_created'], 'safe'],
@@ -76,8 +81,8 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
-            'address' => 'Address',
             'city_id' => 'City ID',
+            'address' => 'Address',
             'longitude' => 'Longitude',
             'latitude' => 'Latitude',
             'role' => 'Role',
@@ -113,7 +118,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
-    public function getReviews()
+    public function getCustomerReviews()
     {
         return $this->hasMany(Reviews::className(), ['customer_id' => 'id']);
     }
@@ -123,7 +128,7 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
-    public function getReviews0()
+    public function getImplementerReviews()
     {
         return $this->hasMany(Reviews::className(), ['implementer_id' => 'id']);
     }
@@ -139,13 +144,23 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Tasks]].
+     * Gets query for [[CustomerTasks]].
      *
      * @return \yii\db\ActiveQuery|TaskQuery
      */
-    public function getTasks()
+    public function getCustomerTasks()
     {
         return $this->hasMany(Task::className(), ['customer_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ImplementerTasks]].
+     *
+     * @return \yii\db\ActiveQuery|TaskQuery
+     */
+    public function getImplementerTasks()
+    {
+        return $this->hasMany(Task::className(), ['implementer_id' => 'id']);
     }
 
     /**

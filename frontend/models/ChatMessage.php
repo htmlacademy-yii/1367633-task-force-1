@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use frontend\models\query\ChatMessageQuery;
 
 /**
  * This is the model class for table "chat_message".
