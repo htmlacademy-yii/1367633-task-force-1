@@ -34,4 +34,38 @@ class UserForm extends Model
 			'searchName' => 'Поиск по имени'
 		];
 	}
+
+	public function search()
+	{
+		$users = User::find()->where(['role' => User::ROLE_IMPLEMENTER])->orderBy('id DESC')->limit(5);
+
+		if ($this->category) {
+			$users->joinWith('specializations')->andWhere(['category_id' => $this->category]);
+		}
+
+		if ($this->freeNow) {
+			$users->andWhere('not exists (select 1 from task where implementer_id = user.id and status in ("processing", "new"))');
+		}
+
+		if ($this->online) {
+			$lastActive = date('Y-m-d H:i:s', strtotime('-30 mins'));
+			$users->andFilterCompare('last_active', ">$lastActive");
+		}
+
+		if ($this->hasReviews) {
+			$users->joinWith('implementerReviews')->andWhere(['not', ['message' => null]]);
+		}
+
+		if ($this->inFavorites) {
+			$users->joinWith('implementerFavorites')->andWhere(['not', ['favorite_id' => null]]);
+		}
+
+		if ($this->searchName) {
+			$users->andFilterWhere(['LIKE', 'name', $this->searchName]);
+		}
+
+		$users = $users->all();
+
+		return $users;
+	}
 }
