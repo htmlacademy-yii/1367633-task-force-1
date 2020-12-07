@@ -16,7 +16,7 @@ class UsersController extends \yii\web\Controller
 		$userForm = new UserForm();
 		$userForm->load(Yii::$app->request->post());
 
-		$users = $userForm->search();
+		$users = $userForm->search()->all();
 
 		$categories = Category::find()->select(['id', 'name'])->all();
 		$resultCategory = [];

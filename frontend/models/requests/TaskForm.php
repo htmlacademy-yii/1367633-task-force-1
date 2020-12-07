@@ -78,8 +78,6 @@ class TaskForm extends Model
 
 		$tasks->andFilterWhere(['LIKE', 'title', $this->searchName]);
 
-		$tasks = $tasks->all();
-
 		return $tasks;
 	}
 }

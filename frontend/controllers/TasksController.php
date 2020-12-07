@@ -16,7 +16,7 @@ class TasksController extends \yii\web\Controller
 		$taskForm = new TaskForm();
 		$taskForm->load(Yii::$app->request->post());
 
-		$tasks = $taskForm->search();
+		$tasks = $taskForm->search()->all();
 
 		$categories = Category::find()->select(['id', 'name'])->all();
 		$resultCategory = [];

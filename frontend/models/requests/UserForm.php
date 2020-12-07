@@ -64,8 +64,6 @@ class UserForm extends Model
 			$users->andFilterWhere(['LIKE', 'name', $this->searchName]);
 		}
 
-		$users = $users->all();
-
 		return $users;
 	}
 }
