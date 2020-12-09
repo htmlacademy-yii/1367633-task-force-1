@@ -32,6 +32,8 @@ use frontend\models\query\UserQuery;
  * @property string $last_active
  * @property string $date_created
  *
+ * @property Favorite[] $customerFavorites
+ * @property Favorite[] $implementerFavorites
  * @property Response[] $responses
  * @property Reviews[] $customerReviews
  * @property Reviews[] $implementerReviews
@@ -101,6 +103,26 @@ class User extends \yii\db\ActiveRecord
             'last_active' => 'Last Active',
             'date_created' => 'Date Created',
         ];
+	}
+	
+	/**
+     * Gets query for [[CustomerFavorites]].
+     *
+     * @return \yii\db\ActiveQuery|FavoriteQuery
+     */
+    public function getCustomerFavorites()
+    {
+        return $this->hasMany(Favorite::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ImplementerFavorites]].
+     *
+     * @return \yii\db\ActiveQuery|FavoriteQuery
+     */
+    public function getImplementerFavorites()
+    {
+        return $this->hasMany(Favorite::className(), ['favorite_id' => 'id']);
     }
 
     /**
@@ -114,7 +136,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Reviews]].
+     * Gets query for [[CustomerReviews]].
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
@@ -124,7 +146,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Reviews0]].
+     * Gets query for [[ImplementerReviews]].
      *
      * @return \yii\db\ActiveQuery|ReviewsQuery
      */
