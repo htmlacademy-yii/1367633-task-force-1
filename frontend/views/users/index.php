@@ -42,7 +42,10 @@ $formConfig = [
 				</div>
 				<div class="feedback-card__top--name user__search-card">
 					<p class="link-name"><a href="#" class="link-regular"><?= $user->name; ?></a></p>
-					<span></span><span></span><span></span><span></span><span class="star-disabled"></span>
+
+					<?= str_repeat('<span></span>', $user->rate); ?>
+					<?=	str_repeat('<span class="star-disabled"></span>', 5 - $user->rate); ?>
+					
 					<b><?= $user->rate; ?></b>
 					<p class="user__search-content">
 						<?= $user->about; ?>
