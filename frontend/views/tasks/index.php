@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'TaskForce - Задания';
 
@@ -22,7 +23,7 @@ $formConfig = [
 		<?php foreach($tasks as $task) : ?>
 			<div class="new-task__card">
 				<div class="new-task__title">
-					<a href="#" class="link-regular">
+					<a href="<?= Url::to(['tasks/view', 'id' => $task->id]); ?>" class="link-regular">
 						<h2><?= $task->title; ?></h2>
 					</a>
 					<a class="new-task__type link-regular" href="#">

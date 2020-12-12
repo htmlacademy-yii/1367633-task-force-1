@@ -13,7 +13,7 @@ use frontend\models\query\ReviewsQuery;
  * @property int $implementer_id
  * @property int $task_id
  * @property string $message
- * @property int $rate
+ * @property int $budget
  * @property string $date_created
  *
  * @property User $customer
@@ -37,7 +37,7 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             [['customer_id', 'implementer_id', 'task_id', 'message', 'date_created'], 'required'],
-            [['customer_id', 'implementer_id', 'task_id', 'rate'], 'integer'],
+            [['customer_id', 'implementer_id', 'task_id', 'budget'], 'integer'],
             [['message'], 'string'],
             [['date_created'], 'safe'],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['customer_id' => 'id']],
@@ -57,7 +57,7 @@ class Reviews extends \yii\db\ActiveRecord
             'implementer_id' => 'Implementer ID',
             'task_id' => 'Task ID',
             'message' => 'Message',
-            'rate' => 'Rate',
+            'budget' => 'Budget',
             'date_created' => 'Date Created',
         ];
     }

@@ -3,8 +3,10 @@
 namespace frontend\controllers;
 
 use Yii;
+use frontend\models\Task;
 use frontend\models\Category;
 use frontend\models\requests\TaskForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Класс для работы с заданиями
@@ -26,5 +28,16 @@ class TasksController extends \yii\web\Controller
 		$category = $resultCategory;
 
 		return $this->render('index', ['tasks' => $tasks, 'category' => $category, 'model' => $taskForm]);
+	}
+
+	public function actionView($id)
+	{
+		$task = Task::findOne($id);
+		
+		if (!$task) {
+			throw new NotFoundHttpException("Задание с ID $id не найдено!");
+		}
+
+		return $this->render('view', ['task' => $task]);
 	}
 }
