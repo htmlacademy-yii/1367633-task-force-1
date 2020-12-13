@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'TaskForce - Задания';
+$this->title = 'TaskForce - Задание';
 
 ?>
 <section class="content-view">
@@ -51,27 +51,27 @@ $this->title = 'TaskForce - Задания';
 		</div>
 	</div>
 	<div class="content-view__feedback">
-		<h2>Отклики <span>(<?= count($task->reviews); ?>)</span></h2>
-		<?php foreach($task->reviews as $reviews) : ?>
+		<h2>Отклики <span>(<?= count($task->responses); ?>)</span></h2>
+		<?php foreach($task->responses as $response) : ?>
 		<div class="content-view__feedback-wrapper">
 			<div class="content-view__feedback-card">
 				<div class="feedback-card__top">
 					<a href="#"><img src="/img/man-glasses.jpg" width="55" height="55"></a>
 					<div class="feedback-card__top--name">
-						<p><a href="#" class="link-regular"><?= $reviews->implementer->name; ?></a></p>
+						<p><a href="#" class="link-regular"><?= $response->implementer->name; ?></a></p>
 
-						<?= str_repeat('<span></span>', $reviews->implementer->rate); ?>
-						<?=	str_repeat('<span class="star-disabled"></span>', 5 - $reviews->implementer->rate); ?>
+						<?= str_repeat('<span></span>', $response->implementer->rate); ?>
+						<?=	str_repeat('<span class="star-disabled"></span>', 5 - $response->implementer->rate); ?>
 						
-						<b><?= $reviews->implementer->rate; ?></b>
+						<b><?= $response->implementer->rate; ?></b>
 					</div>
-					<span class="new-task__time"><?= Yii::$app->formatter->asRelativeTime($reviews->date_created); ?></span>
+					<span class="new-task__time"><?= Yii::$app->formatter->asRelativeTime($response->date_created); ?></span>
 				</div>
 				<div class="feedback-card__content">
 					<p>
-						<?= $reviews->message; ?>
+						<?= $response->description; ?>
 					</p>
-					<span><?= $reviews->budget; ?> ₽</span>
+					<span><?= $response->price; ?> ₽</span>
 				</div>
 				<div class="feedback-card__actions">
 					<a class="button__small-color request-button button" type="button">Подтвердить</a>
@@ -92,7 +92,10 @@ $this->title = 'TaskForce - Задания';
 					<p><?= $task->customer->name; ?></p>
 				</div>
 			</div>
-			<p class="info-customer"><span><?= count($task->customer->customerTasks); ?> заданий</span><span class="last-">2 года на сайте</span></p>
+			<p class="info-customer">
+				<span><?= count($task->customer->customerTasks); ?> заданий</span>
+				<span class="last-">2 года на сайте</span>
+			</p>
 			<a href="#" class="link-regular">Смотреть профиль</a>
 		</div>
 	</div>

@@ -202,5 +202,10 @@ class User extends \yii\db\ActiveRecord
     public static function find()
     {
         return new UserQuery(get_called_class());
-    }
+	}
+	
+	public function getAge()
+	{
+		return (new \DateTime())->diff(new \DateTime($this->birthday))->y;
+	}
 }
