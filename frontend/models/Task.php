@@ -153,5 +153,12 @@ class Task extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TaskQuery(get_called_class());
-    }
+	}
+	
+	public function getAttachments()
+	{
+		$path = glob("attachments/" . $this->id . "_*.*");
+
+		return $path;
+	}
 }

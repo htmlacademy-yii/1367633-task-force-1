@@ -25,11 +25,14 @@ $this->title = 'TaskForce - Задание';
 					<?= $task->description; ?>
 				</p>
 			</div>
+			<?php if (count($task->attachments) > 0) :?>
 			<div class="content-view__attach">
 				<h3 class="content-view__h3">Вложения</h3>
-				<a href="#">my_picture.jpeg</a>
-				<a href="#">agreement.docx</a>
+				<?php foreach($task->attachments as $file) : ?>
+				<a href="/<?= $file ?>"><?= basename($file) ?></a>
+				<?php endforeach; ?>
 			</div>
+			<?php endif ?>
 			<div class="content-view__location">
 				<h3 class="content-view__h3">Расположение</h3>
 				<div class="content-view__location-wrapper">
@@ -87,7 +90,7 @@ $this->title = 'TaskForce - Задание';
 		<div class="profile-mini__wrapper">
 			<h3>Заказчик</h3>
 			<div class="profile-mini__top">
-				<img src="/img/man-brune.jpg" width="62" height="62" alt="Аватар заказчика">
+				<img src="/<?= $task->customer->photo; ?>" width="62" height="62" alt="Аватар заказчика">
 				<div class="profile-mini__name five-stars__rate">
 					<p><?= $task->customer->name; ?></p>
 				</div>

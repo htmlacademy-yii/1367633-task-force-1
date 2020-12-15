@@ -37,7 +37,7 @@ $formConfig = [
 		<div class="content-view__feedback-card user__search-wrapper">
 			<div class="feedback-card__top">
 				<div class="user__search-icon">
-					<a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>"><img src="./img/man-glasses.jpg" width="65" height="65"></a>
+					<a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>"><img src="<?= $user->photo; ?>" width="65" height="65"></a>
 					<span><?= count($user->implementerTasks); ?> заданий</span>
 					<span><?= count($user->implementerReviews); ?> отзывов</span>
 				</div>
