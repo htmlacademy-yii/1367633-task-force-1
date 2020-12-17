@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 $this->title = 'TaskForce - Исполнители';
 
@@ -36,13 +37,16 @@ $formConfig = [
 		<div class="content-view__feedback-card user__search-wrapper">
 			<div class="feedback-card__top">
 				<div class="user__search-icon">
-					<a href="#"><img src="./img/man-glasses.jpg" width="65" height="65"></a>
+					<a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>"><img src="<?= $user->photo; ?>" width="65" height="65"></a>
 					<span><?= count($user->implementerTasks); ?> заданий</span>
 					<span><?= count($user->implementerReviews); ?> отзывов</span>
 				</div>
 				<div class="feedback-card__top--name user__search-card">
-					<p class="link-name"><a href="#" class="link-regular"><?= $user->name; ?></a></p>
-					<span></span><span></span><span></span><span></span><span class="star-disabled"></span>
+					<p class="link-name"><a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>" class="link-regular"><?= $user->name; ?></a></p>
+
+					<?= str_repeat('<span></span>', $user->rate); ?>
+					<?=	str_repeat('<span class="star-disabled"></span>', 5 - $user->rate); ?>
+					
 					<b><?= $user->rate; ?></b>
 					<p class="user__search-content">
 						<?= $user->about; ?>

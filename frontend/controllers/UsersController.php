@@ -3,8 +3,10 @@
 namespace frontend\controllers;
 
 use Yii;
+use frontend\models\User;
 use frontend\models\Category;
 use frontend\models\requests\UserForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Класс для работы с пользователями
@@ -26,5 +28,16 @@ class UsersController extends \yii\web\Controller
 		$category = $resultCategory;
 
 		return $this->render('index', ['users' => $users, 'category' => $category, 'model' => $userForm]);
+	}
+
+	public function actionView($id)
+	{
+		$user = User::findOne($id);
+
+		if (!$user) {
+			throw new NotFoundHttpException("Пользователя с ID $id не найдено!");
+		}
+
+		return $this->render('view', ['user' => $user]);
 	}
 }

@@ -23,8 +23,8 @@ AppAsset::register($this);
 	<?php $this->registerCsrfMetaTags() ?>
 	<title><?= Html::encode($this->title) ?></title>
 	<?php $this->head() ?>
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -63,10 +63,10 @@ AppAsset::register($this);
 				<div class="header__nav">
 					<ul class="header-nav__list site-list">
 						<li class="site-list__item">
-							<a href="tasks">Задания</a>
+							<a href="/tasks">Задания</a>
 						</li>
 						<li class="site-list__item">
-							<a href="users">Исполнители</a>
+							<a href="/users">Исполнители</a>
 						</li>
 						<li class="site-list__item">
 							<a href="#">Создать задание</a>
@@ -103,7 +103,7 @@ AppAsset::register($this);
 				</div>
 				<div class="header__account">
 					<a class="header__account-photo">
-						<img src="./img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
+						<img src="/img/user-photo.png" width="43" height="44" alt="Аватар пользователя">
 					</a>
 					<span class="header__account-name">
 						Василий
@@ -167,7 +167,7 @@ AppAsset::register($this);
 				</div>
 				<div class="page-footer__copyright">
 					<a>
-						<img class="copyright-logo" src="./img/academy-logo.png" width="185" height="63" alt="Логотип HTML Academy">
+						<img class="copyright-logo" src="/img/academy-logo.png" width="185" height="63" alt="Логотип HTML Academy">
 					</a>
 				</div>
 			</div>

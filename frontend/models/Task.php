@@ -14,6 +14,7 @@ use frontend\models\query\TaskQuery;
  * @property int $category_id
  * @property int $city_id
  * @property string $address
+ * @property string $address_info
  * @property string $status
  * @property string $title
  * @property string $description
@@ -48,12 +49,12 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'implementer_id', 'category_id', 'city_id', 'address', 'status', 'title', 'description', 'budget', 'longitude', 'latitude', 'end_date', 'date_created'], 'required'],
+            [['customer_id', 'implementer_id', 'category_id', 'city_id', 'address', 'address_info', 'status', 'title', 'description', 'budget', 'longitude', 'latitude', 'end_date', 'date_created'], 'required'],
             [['customer_id', 'implementer_id', 'category_id', 'city_id', 'budget'], 'integer'],
             [['description'], 'string'],
             [['longitude', 'latitude'], 'number'],
             [['end_date', 'date_created'], 'safe'],
-            [['address', 'title'], 'string', 'max' => 255],
+            [['address', 'address_info', 'title'], 'string', 'max' => 255],
             [['status'], 'string', 'max' => 45],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
             [['city_id'], 'exist', 'skipOnError' => true, 'targetClass' => City::className(), 'targetAttribute' => ['city_id' => 'id']],
@@ -73,6 +74,7 @@ class Task extends \yii\db\ActiveRecord
             'category_id' => 'Category ID',
             'city_id' => 'City ID',
             'address' => 'Address',
+            'address_info' => 'Address Info',
             'status' => 'Status',
             'title' => 'Title',
             'description' => 'Description',
@@ -151,5 +153,12 @@ class Task extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TaskQuery(get_called_class());
-    }
+	}
+	
+	public function getAttachments()
+	{
+		$path = glob("attachments/" . $this->id . "_*.*");
+
+		return $path;
+	}
 }

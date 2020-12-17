@@ -202,5 +202,28 @@ class User extends \yii\db\ActiveRecord
     public static function find()
     {
         return new UserQuery(get_called_class());
-    }
+	}
+	
+	public function getAge()
+	{
+		return (new \DateTime())->diff(new \DateTime($this->birthday))->y;
+	}
+
+	public function getPhoto()
+	{
+		$path = glob("photo/" . $this->id . ".*");
+		
+		if (!file_exists($path[0])) {
+			return "photo/standart.png";
+		}
+
+		return $path[0];
+	}
+
+	public function getPhotoWork()
+	{
+		$path = glob("photo-work/" . $this->id . "_*.*");
+
+		return $path;
+	}
 }
