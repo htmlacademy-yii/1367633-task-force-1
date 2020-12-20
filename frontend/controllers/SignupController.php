@@ -28,6 +28,7 @@ class SignupController extends \yii\web\Controller
 				$user->email = $signupForm->email;
 				$user->password = Yii::$app->security->generatePasswordHash($signupForm->password);
 				$user->city_id = $signupForm->city;
+				$user->role = User::ROLE_CUSTOMER;
 				$user->save();
 
 				return $this->goHome();
