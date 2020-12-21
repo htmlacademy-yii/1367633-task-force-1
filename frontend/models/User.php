@@ -14,8 +14,6 @@ use frontend\models\query\UserQuery;
  * @property string $password
  * @property int $city_id
  * @property string $address
- * @property float $longitude
- * @property float $latitude
  * @property string $role
  * @property string $birthday
  * @property string $about
@@ -61,9 +59,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'city_id', 'address', 'longitude', 'latitude', 'role', 'birthday', 'about', 'phone', 'skype', 'telegram', 'rate', 'views', 'last_active', 'date_created'], 'required'],
+            [['name', 'email', 'password', 'city_id'], 'required'],
             [['city_id', 'new_message', 'actions_task', 'new_review', 'show_contacts', 'now_show_profile', 'rate', 'views'], 'integer'],
-            [['longitude', 'latitude'], 'number'],
             [['birthday', 'last_active', 'date_created'], 'safe'],
             [['about'], 'string'],
             [['name', 'email', 'address'], 'string', 'max' => 255],
@@ -85,8 +82,6 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Password',
             'city_id' => 'City ID',
             'address' => 'Address',
-            'longitude' => 'Longitude',
-            'latitude' => 'Latitude',
             'role' => 'Role',
             'birthday' => 'Birthday',
             'about' => 'About',
