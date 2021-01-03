@@ -2,6 +2,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 use yii\helpers\Url;
 
 $this->title = 'TaskForce - Задания';
@@ -41,14 +42,16 @@ $formConfig = [
 		<?php endforeach; ?>
 	</div>
 	<div class="new-task__pagination">
-		<ul class="new-task__pagination-list">
-			<li class="pagination__item"><a href="#"></a></li>
-			<li class="pagination__item pagination__item--current">
-				<a>1</a></li>
-			<li class="pagination__item"><a href="#">2</a></li>
-			<li class="pagination__item"><a href="#">3</a></li>
-			<li class="pagination__item"><a href="#"></a></li>
-		</ul>
+		<?=
+			LinkPager::widget([
+				'pagination' => $pagination,
+				'activePageCssClass' => 'pagination__item--current',
+				'options' => ['class' => 'new-task__pagination-list'],
+				'linkContainerOptions' => ['class' => 'pagination__item'],
+				'prevPageLabel' => '&nbsp;',
+				'nextPageLabel' => '&nbsp;'
+			]);
+		?>
 	</div>
 </section>
 <section class="search-task">

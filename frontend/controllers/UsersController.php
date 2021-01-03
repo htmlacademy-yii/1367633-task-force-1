@@ -7,18 +7,29 @@ use frontend\models\User;
 use frontend\models\Category;
 use frontend\models\requests\UserForm;
 use yii\web\NotFoundHttpException;
+use frontend\controllers\SecuredController;
+use yii\data\Pagination;
 
 /**
  * Класс для работы с пользователями
  */
-class UsersController extends \yii\web\Controller
+class UsersController extends SecuredController
 {
 	public function actionIndex()
 	{
 		$userForm = new UserForm();
 		$userForm->load(Yii::$app->request->post());
 
-		$users = $userForm->search()->all();
+		$query = $userForm->search();
+
+		$pagination = new Pagination([
+			'totalCount' => $query->count(),
+			'pageSize' => 5,
+			'forcePageParam' => false,
+			'pageSizeParam' => false
+		]);
+
+		$users = $query->offset($pagination->offset)->limit($pagination->limit)->all();
 
 		$categories = Category::find()->select(['id', 'name'])->all();
 		$resultCategory = [];
@@ -27,7 +38,7 @@ class UsersController extends \yii\web\Controller
 		}
 		$category = $resultCategory;
 
-		return $this->render('index', ['users' => $users, 'category' => $category, 'model' => $userForm]);
+		return $this->render('index', ['users' => $users, 'category' => $category, 'model' => $userForm, 'pagination' => $pagination]);
 	}
 
 	public function actionView($id)
@@ -39,5 +50,12 @@ class UsersController extends \yii\web\Controller
 		}
 
 		return $this->render('view', ['user' => $user]);
+	}
+
+	public function actionLogout()
+	{
+		Yii::$app->user->logout();
+
+		return $this->goHome();
 	}
 }

@@ -3,6 +3,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 use yii\helpers\Url;
 
 $this->title = 'TaskForce - Исполнители';
@@ -37,7 +38,7 @@ $formConfig = [
 		<div class="content-view__feedback-card user__search-wrapper">
 			<div class="feedback-card__top">
 				<div class="user__search-icon">
-					<a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>"><img src="<?= $user->photo; ?>" width="65" height="65"></a>
+					<a href="<?= Url::to(['users/view', 'id' => $user->id]); ?>"><img src="/<?= $user->photo; ?>" width="65" height="65"></a>
 					<span><?= count($user->implementerTasks); ?> заданий</span>
 					<span><?= count($user->implementerReviews); ?> отзывов</span>
 				</div>
@@ -61,6 +62,18 @@ $formConfig = [
 			</div>
 		</div>
 	<?php endforeach; ?>
+	<div class="new-task__pagination">
+		<?=
+			LinkPager::widget([
+				'pagination' => $pagination,
+				'activePageCssClass' => 'pagination__item--current',
+				'options' => ['class' => 'new-task__pagination-list'],
+				'linkContainerOptions' => ['class' => 'pagination__item'],
+				'prevPageLabel' => '&nbsp;',
+				'nextPageLabel' => '&nbsp;'
+			]);
+		?>
+	</div>
 </section>
 <section class="search-task">
 	<div class="search-task__wrapper">

@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 use frontend\models\query\UserQuery;
+use yii\web\IdentityInterface;
+use yii\base\NotSupportedException;
 
 /**
  * This is the model class for table "user".
@@ -40,7 +42,7 @@ use frontend\models\query\UserQuery;
  * @property Task[] $implementerTasks
  * @property City $city
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
 	const ROLE_CUSTOMER = 'customer';
 	const ROLE_IMPLEMENTER = 'implementer';
@@ -220,5 +222,67 @@ class User extends \yii\db\ActiveRecord
 		$path = glob("photo-work/" . $this->id . "_*.*");
 
 		return $path;
+	}
+	
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function findIdentity($id)
+	{
+		return static::findOne(['id' => $id]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function findIdentityByAccessToken($token, $type = null)
+	{
+		throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+	}
+
+	/**
+	 * Finds user by email
+	 *
+	 * @param string $email
+	 * @return static|null
+	 */
+	public static function findByUser($email)
+	{
+		return static::findOne(['email' => $email]);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getId()
+	{
+		return $this->getPrimaryKey();
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getAuthKey()
+	{
+		return $this->auth_key;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function validateAuthKey($authKey)
+	{
+		return $this->getAuthKey() === $authKey;
+	}
+
+	/**
+	 * Validates password
+	 *
+	 * @param string $password password to validate
+	 * @return bool if password provided is valid for current user
+	 */
+	public function validatePassword($password)
+	{
+		return Yii::$app->security->validatePassword($password, $this->password);
 	}
 }

@@ -37,7 +37,7 @@ class UserForm extends Model
 
 	public function search()
 	{
-		$users = User::find()->where(['role' => User::ROLE_IMPLEMENTER])->orderBy('id DESC')->limit(5);
+		$users = User::find()->where(['role' => User::ROLE_IMPLEMENTER])->orderBy('id DESC');
 
 		if ($this->category) {
 			$users->joinWith('specializations')->andWhere(['category_id' => $this->category]);
