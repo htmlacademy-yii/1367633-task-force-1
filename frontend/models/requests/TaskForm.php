@@ -47,7 +47,7 @@ class TaskForm extends Model
 
 	public function search()
 	{
-		$tasks = Task::find()->where(['status' => Task::STATUS_NEW])->orderBy('id DESC')->limit(5);
+		$tasks = Task::find()->where(['status' => Task::STATUS_NEW])->orderBy('id DESC');
 
 		if ($this->category) {
 			$tasks->andWhere(['category_id' => $this->category]);
