@@ -49,7 +49,7 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'implementer_id', 'category_id', 'city_id', 'address', 'address_info', 'status', 'title', 'description', 'budget', 'longitude', 'latitude', 'end_date', 'date_created'], 'required'],
+            [['customer_id', 'category_id', 'title', 'description', 'budget'], 'required'],
             [['customer_id', 'implementer_id', 'category_id', 'city_id', 'budget'], 'integer'],
             [['description'], 'string'],
             [['longitude', 'latitude'], 'number'],
