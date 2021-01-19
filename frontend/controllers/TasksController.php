@@ -4,7 +4,6 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Task;
-use frontend\models\User;
 use frontend\models\Category;
 use frontend\models\requests\TaskForm;
 use frontend\models\requests\TaskCreateForm;
@@ -19,22 +18,6 @@ use yii\web\UploadedFile;
  */
 class TasksController extends SecuredController
 {
-	public function behaviors()
-	{
-		$rules = parent::behaviors();
-		$rule = [
-			'allow' => false,
-			'actions' => ['create'],
-			'matchCallback' => function ($rule, $action) {
-				$user = User::findOne(Yii::$app->user->id);
-				return $user->role !== User::ROLE_CUSTOMER;
-			}
-		];
-		array_unshift($rules['access']['rules'], $rule);
-
-		return $rules;
-	}
-
 	public function actionIndex()
 	{
 		$taskForm = new TaskForm();
@@ -87,7 +70,7 @@ class TasksController extends SecuredController
 
 		if (Yii::$app->request->isPost) {
 			$taskCreate->load(Yii::$app->request->post());
-			if ($taskCreate->validate()) {
+			if ($taskCreate->validate() && empty($taskCreate->getErrors())) {
 				$task = new Task();
 				$task->customer_id = Yii::$app->user->getId();
 				$task->status = Task::STATUS_NEW;
