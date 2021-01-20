@@ -70,7 +70,7 @@ AppAsset::register($this);
 							<a href="/users">Исполнители</a>
 						</li>
 						<li class="site-list__item">
-							<a href="#">Создать задание</a>
+							<a href="/tasks/create">Создать задание</a>
 						</li>
 						<li class="site-list__item">
 							<a>Мой профиль</a>
@@ -120,7 +120,7 @@ AppAsset::register($this);
 							<a href="#">Настройки</a>
 						</li>
 						<li>
-							<a href="<?= Url::to('logout'); ?>">Выход</a>
+							<a href="<?= Url::to('/logout'); ?>">Выход</a>
 						</li>
 					</ul>
 				</div>
