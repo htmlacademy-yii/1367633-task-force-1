@@ -73,7 +73,7 @@ class Task
 			foreach (self::ACTION_AVAILABLE[$this->status] as $action) {
 				$action = new $action();
 				if ($action->canUse($this->idCustomer, $this->idImplementer, $idUser)) {
-					$actionAvailable = $action->getAction();
+					$actionAvailable[] = $action->getAction();
 				}
 			}
 		}

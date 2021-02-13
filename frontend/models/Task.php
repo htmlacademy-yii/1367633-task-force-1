@@ -33,7 +33,11 @@ use frontend\models\query\TaskQuery;
  */
 class Task extends \yii\db\ActiveRecord
 {
-	const STATUS_NEW = 'new';
+	const STATUS_NEW = 'new';						// Новое
+	const STATUS_PROCESSING = 'processing'; 		// В работе
+	const STATUS_PERFORMED = 'performed'; 			// Выполнено
+	const STATUS_FAILED = 'failed'; 				// Провалено
+	const STATUS_CANCELED = 'canceled'; 			// Отменено
 
     /**
      * {@inheritdoc}

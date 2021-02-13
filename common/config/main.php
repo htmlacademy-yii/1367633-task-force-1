@@ -16,6 +16,8 @@ return [
 				'/' => 'landing/login',
 				'tasks/page/<page:\d+>' => 'tasks/index',
 				'tasks' => 'tasks/index',
+				'tasks/accept/<taskId>/<implementerId>' => 'tasks/accept',
+				'tasks/cancel/<taskId>/<responseId>' => 'tasks/cancel',
 				'users/page/<page:\d+>' => 'users/index',
 				'users' => 'users/index',
 				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

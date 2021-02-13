@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use yii\widgets\Menu;
 
 AppAsset::register($this);
 ?>
@@ -62,20 +63,23 @@ AppAsset::register($this);
 					</a>
 				</div>
 				<div class="header__nav">
-					<ul class="header-nav__list site-list">
-						<li class="site-list__item">
-							<a href="/tasks">Задания</a>
-						</li>
-						<li class="site-list__item">
-							<a href="/users">Исполнители</a>
-						</li>
-						<li class="site-list__item">
-							<a href="/tasks/create">Создать задание</a>
-						</li>
-						<li class="site-list__item">
-							<a>Мой профиль</a>
-						</li>
-					</ul>
+					<?= 
+						Menu::widget([
+							'items' => [
+								['label' => 'Задания', 'url' => ['/tasks']],
+								['label' => 'Исполнители', 'url' => ['/users']],
+								['label' => 'Создать задание', 'url' => ['/tasks/create']],
+								['label' => 'Мой профиль', 'url' => ['#']],
+							],
+							'options' => [
+								'class' => 'header-nav__list site-list'
+							],
+							'itemOptions'=> [
+								'class'=> 'site-list__item',
+							],
+							'activeCssClass'=>'site-list__item--active',
+						]);
+					?>
 				</div>
 				<?php if(!Yii::$app->user->isGuest): ?>
 				<div class="header__town">

@@ -4,6 +4,8 @@ namespace TaskForce\Actions;
 
 class DoneAction extends AbstractAction
 {
+	const ACTION_DONE = 'done';
+
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
 		return $idImplementer !== $idUser;
