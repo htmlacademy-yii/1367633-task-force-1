@@ -27,7 +27,8 @@ class Task
 		self::STATUS_NEW => 'Новое',
 		self::STATUS_PROCESSING => 'В работе',
 		self::STATUS_PERFORMED => 'Выполнено',
-		self::STATUS_FAILED => 'Отменено',
+		self::STATUS_FAILED => 'Провалено',
+		self::STATUS_CANCELED => 'Отменено'
 	];
 
 	const ACTION_AVAILABLE = [

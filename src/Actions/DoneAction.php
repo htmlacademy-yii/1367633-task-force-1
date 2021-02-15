@@ -8,7 +8,7 @@ class DoneAction extends AbstractAction
 
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
-		return $idImplementer !== $idUser;
+		return $idCustomer === $idUser;
 	}
 
 	public function getName(): string

@@ -8,7 +8,7 @@ class RefuseAction extends AbstractAction
 
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
-		return $idCustomer !== $idUser;
+		return $idImplementer === $idUser;
 	}
 
 	public function getName(): string
