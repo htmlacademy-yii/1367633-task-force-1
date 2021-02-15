@@ -7,8 +7,6 @@ use yii\helpers\Url;
 
 $this->title = 'TaskForce - Задание';
 
-$actionAvailable = $taskState->getActions(Yii::$app->user->getId());
-
 $this->registerJsFile('@web/js/main.js');
 
 ?>
@@ -62,6 +60,9 @@ $this->registerJsFile('@web/js/main.js');
 			<?php endif; ?>
 			<?php if (in_array(\TaskForce\Actions\DoneAction::ACTION_DONE, $actionAvailable)) : ?>
 			<button class="button button__big-color request-button open-modal" type="button" data-for="complete-form">Завершить</button>
+			<?php endif; ?>
+			<?php if (in_array(\TaskForce\Actions\CancelAction::ACTION_CANCEL, $actionAvailable)) : ?>
+			<button class="button button__big-color cancel-button open-modal" type="button" data-for="cancel-form">Отменить</button>
 			<?php endif; ?>
 		</div>
 	</div>
@@ -211,6 +212,18 @@ $this->registerJsFile('@web/js/main.js');
 	<?php ActiveForm::begin(['method' => 'post', 'action' => Url::toRoute(['tasks/view/', 'id' => $task->id, 'form' => 'failed'])]); ?>
 		<button class="button__form-modal button" id="close-modal" type="button">Отмена</button>
 		<?= Html::submitButton('Отказаться', ['class' => 'button__form-modal refusal-button button']); ?>
+	<?php ActiveForm::end(); ?>
+	<button class="form-modal-close" type="button">Закрыть</button>
+</section>
+
+<section class="modal form-modal refusal-form" id="cancel-form">
+	<h2>Отмена задания</h2>
+	<p>
+		Вы собираетесь отменить задания. Вы уверены?
+	</p>
+	<?php ActiveForm::begin(['method' => 'post', 'action' => Url::toRoute(['tasks/view/', 'id' => $task->id, 'form' => 'cancel'])]); ?>
+		<button class="button__form-modal button" id="close-modal" type="button">Закрыть</button>
+		<?= Html::submitButton('Отменить', ['class' => 'button__form-modal refusal-button button']); ?>
 	<?php ActiveForm::end(); ?>
 	<button class="form-modal-close" type="button">Закрыть</button>
 </section>

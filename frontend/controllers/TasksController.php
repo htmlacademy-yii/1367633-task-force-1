@@ -104,11 +104,20 @@ class TasksController extends SecuredController
 
 			return $this->redirect(['tasks/view', 'id' => $id]);
 		}
+
+		if (Yii::$app->request->isPost && $form === 'cancel') {
+			$task->status = Task::STATUS_CANCELED;
+			$task->save();
+
+			return $this->redirect(['tasks/view', 'id' => $id]);
+		}
 		
 		$taskState = new \TaskForce\Models\Task($task->customer_id, $task->implementer_id);
 		$taskState->setStatus($task->status);
 
-		return $this->render('view', ['task' => $task, 'taskState' => $taskState, 'responseModel' => $responseModel,  'performedModel' => $performedModel, 'errors' => $errors]);
+		$actionAvailable = $taskState->getActions(Yii::$app->user->getId());
+
+		return $this->render('view', ['task' => $task, 'taskState' => $taskState, 'responseModel' => $responseModel,  'performedModel' => $performedModel, 'errors' => $errors, 'actionAvailable' => $actionAvailable]);
 	}
 
 	public function actionCreate()
