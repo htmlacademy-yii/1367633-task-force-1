@@ -11,6 +11,7 @@ use frontend\models\query\ResponseQuery;
  * @property int $id
  * @property int $task_id
  * @property int $implementer_id
+ * @property string $status
  * @property string $description
  * @property int $price
  * @property int $rate
@@ -21,6 +22,9 @@ use frontend\models\query\ResponseQuery;
  */
 class Response extends \yii\db\ActiveRecord
 {
+	const STATUS_NEW = 'new';						// Новое
+	const STATUS_CANCELED = 'canceled'; 			// Отменено
+	
     /**
      * {@inheritdoc}
      */
@@ -35,8 +39,9 @@ class Response extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['task_id', 'implementer_id', 'description', 'price', 'rate', 'date_created'], 'required'],
-            [['task_id', 'implementer_id', 'price', 'rate'], 'integer'],
+            [['task_id', 'implementer_id', 'status', 'description', 'price', 'rate'], 'required'],
+			[['task_id', 'implementer_id', 'price', 'rate'], 'integer'],
+			[['status'], 'string', 'max' => 45],
             [['description'], 'string'],
             [['date_created'], 'safe'],
             [['implementer_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['implementer_id' => 'id']],
@@ -53,6 +58,7 @@ class Response extends \yii\db\ActiveRecord
             'id' => 'ID',
             'task_id' => 'Task ID',
             'implementer_id' => 'Implementer ID',
+            'status' => 'Status',
             'description' => 'Description',
             'price' => 'Price',
             'rate' => 'Rate',

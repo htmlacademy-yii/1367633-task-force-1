@@ -36,7 +36,7 @@ class Reviews extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['customer_id', 'implementer_id', 'task_id', 'message', 'date_created'], 'required'],
+            [['customer_id', 'implementer_id', 'task_id', 'message'], 'required'],
             [['customer_id', 'implementer_id', 'task_id', 'rate'], 'integer'],
             [['message'], 'string'],
             [['date_created'], 'safe'],

@@ -4,6 +4,8 @@ namespace TaskForce\Actions;
 
 class RespondAction extends AbstractAction
 {
+	const ACTION_RESPOND = 'respond';
+
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
 		return $idCustomer !== $idUser;

@@ -4,9 +4,11 @@ namespace TaskForce\Actions;
 
 class RefuseAction extends AbstractAction
 {
+	const ACTION_REFUSE = 'refuse';
+
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
-		return $idCustomer !== $idUser;
+		return $idImplementer === $idUser;
 	}
 
 	public function getName(): string

@@ -4,9 +4,11 @@ namespace TaskForce\Actions;
 
 class CancelAction extends AbstractAction
 {
+	const ACTION_CANCEL = 'cancel';
+
 	public function canUse($idCustomer, $idImplementer, $idUser): bool
 	{
-		return $idImplementer !== $idUser;
+		return $idCustomer === $idUser;
 	}
 
 	public function getName(): string

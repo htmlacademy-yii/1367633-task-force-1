@@ -27,7 +27,8 @@ class Task
 		self::STATUS_NEW => 'Новое',
 		self::STATUS_PROCESSING => 'В работе',
 		self::STATUS_PERFORMED => 'Выполнено',
-		self::STATUS_FAILED => 'Отменено',
+		self::STATUS_FAILED => 'Провалено',
+		self::STATUS_CANCELED => 'Отменено'
 	];
 
 	const ACTION_AVAILABLE = [
@@ -73,7 +74,7 @@ class Task
 			foreach (self::ACTION_AVAILABLE[$this->status] as $action) {
 				$action = new $action();
 				if ($action->canUse($this->idCustomer, $this->idImplementer, $idUser)) {
-					$actionAvailable = $action->getAction();
+					$actionAvailable[] = $action->getAction();
 				}
 			}
 		}
